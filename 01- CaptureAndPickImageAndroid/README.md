@@ -3,7 +3,7 @@
 Secilen resmi veya resimleri listedeki ImageView de gosterir
 
 
-![screenshot](screenshot.jpg)
+![screenshot](screenshot.png)
 
 
 
