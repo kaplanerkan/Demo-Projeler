@@ -2,4 +2,9 @@
 
 Secilen resmi veya resimleri listedeki ImageView de gosterir
 
+
+![screenshot](screenshot.jpg)
+
+
+
 ![Alt text](https://github.com/kaplanerkan/Demo-Projeler/blob/main/01-%20CaptureAndPickImageAndroid/scrcpy_UJWVOjLnwa.png?raw=true "Title")
