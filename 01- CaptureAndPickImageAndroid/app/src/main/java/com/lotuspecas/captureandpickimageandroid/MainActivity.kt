@@ -25,11 +25,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageAdapter: ImageAdapter
     private var selectedPaths = mutableListOf<ImageModel>()
 
-
     /**
      * Startet die Aktivität zur Auswahl von Bildern
      */
-    private  val selectImagesActivityResult =
+    private val selectImagesActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
 
@@ -48,9 +47,10 @@ class MainActivity : AppCompatActivity() {
                             selectedPaths.add(image)
                         }
                     }
-                    imageAdapter.updateList(selectedPaths)
-                }
 
+                    imageAdapter.updateList(selectedPaths)
+
+                }
                 //Wenn nur ein Bild ausgewählt ist
                 else if (data?.data != null) {
                     val imageUri: Uri? = data.data
@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,20 +85,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-
-
-
     /**
      * Initialisiert die Views
      */
     private fun initviews() {
         imageAdapter = ImageAdapter()
         binding.rvImages.adapter = imageAdapter
-
-
-
 
 
         /**

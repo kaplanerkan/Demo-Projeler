@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgSelected"
         android:layout_width="match_parent"
@@ -22,6 +21,5 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="12sp"
         tools:text="@tools:sample/full_names" />
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>
