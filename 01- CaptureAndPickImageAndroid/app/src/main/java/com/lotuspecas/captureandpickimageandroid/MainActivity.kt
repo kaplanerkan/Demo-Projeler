@@ -26,6 +26,49 @@ class MainActivity : AppCompatActivity() {
     private var selectedPaths = mutableListOf<ImageModel>()
 
 
+    /**
+     * Startet die Aktivität zur Auswahl von Bildern
+     */
+    private  val selectImagesActivityResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+
+                selectedPaths = mutableListOf()
+
+                val data: Intent? = result.data
+                //Wenn mehrere Bilder ausgewählt sind
+                if (data?.clipData != null) {
+                    val count = data.clipData?.itemCount ?: 0
+
+                    for (i in 0 until count) {
+                        val imageUri: Uri? = data.clipData?.getItemAt(i)?.uri
+                        val file = getImageFromUri(imageUri)
+                        file?.let {
+                            val image = ImageModel(it.absolutePath)
+                            selectedPaths.add(image)
+                        }
+                    }
+                    imageAdapter.updateList(selectedPaths)
+                }
+
+                //Wenn nur ein Bild ausgewählt ist
+                else if (data?.data != null) {
+                    val imageUri: Uri? = data.data
+                    val file = getImageFromUri(imageUri)
+                    file?.let {
+                        val image = ImageModel(it.absolutePath)
+
+                        selectedPaths.add(image)
+
+                    }
+
+                    imageAdapter.updateList(selectedPaths)
+                }
+            }
+        }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -43,58 +86,37 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+
+
+
+
+    /**
+     * Initialisiert die Views
+     */
     private fun initviews() {
         imageAdapter = ImageAdapter()
         binding.rvImages.adapter = imageAdapter
 
 
-        val selectImagesActivityResult =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-
-                    selectedPaths = mutableListOf()
-                    
-                    val data: Intent? = result.data
-                    //If multiple image selected
-                    if (data?.clipData != null) {
-                        val count = data.clipData?.itemCount ?: 0
-
-                        for (i in 0 until count) {
-                            val imageUri: Uri? = data.clipData?.getItemAt(i)?.uri
-                            val file = getImageFromUri(imageUri)
-                            file?.let {
-                                val image = ImageModel(it.absolutePath)
-                                selectedPaths.add(image)
-                            }
-                        }
-                        imageAdapter.updateList(selectedPaths)
-                    }
-                    //If single image selected
-                    else if (data?.data != null) {
-                        val imageUri: Uri? = data.data
-                        val file = getImageFromUri(imageUri)
-                        file?.let {
-                            val image = ImageModel(it.absolutePath)
-
-                            selectedPaths.add(image)
-
-                        }
-
-                        imageAdapter.updateList(selectedPaths)
-                    }
-                }
-            }
 
 
 
+        /**
+         * Öffnet den Dateiauswahldialog
+         */
         binding.btnSelectImages.setOnClickListener {
 
             try {
+
                 deleteTempFiles()
+
                 val intent = Intent(ACTION_GET_CONTENT)
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
                 intent.type = "*/*"
                 selectImagesActivityResult.launch(intent)
+
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.e("Error", "Error deleting temp files")
@@ -105,6 +127,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Gibt die Datei aus einem Uri zurück
+     */
     private fun getImageFromUri(imageUri: Uri?): File? {
         imageUri?.let { uri ->
             val mimeType = getMimeType(this@MainActivity, uri)
@@ -118,20 +143,26 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Gibt den Mimetyp einer Datei zurück
+     */
     private fun getMimeType(context: Context, uri: Uri): String? {
-        //Check uri format to avoid null
+        //Konvertiert den Uri in eine Dateiendung
         val extension: String? = if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
-            //If scheme is a content
+            //Wenn das Schema ein Inhalt ist
             val mime = MimeTypeMap.getSingleton()
             mime.getExtensionFromMimeType(context.contentResolver.getType(uri))
         } else {
-            //If scheme is a File
-            //This will replace white spaces with %20 and also other special characters. This will avoid returning null values on file name with spaces and special characters.
+            //Wenn das Schema ein Dateischema ist
+            //Diese wird verwendet, um die Dateiendung zu erhalten
             MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(uri.path?.let { File(it) }).toString())
         }
         return extension
     }
 
+    /**
+     * Erstellt eine temporäre Datei aus einem Uri
+     */
     private fun createTmpFileFromUri(
         context: Context, uri: Uri, fileName: String, mimeType: String
     ): File? {
@@ -146,6 +177,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Löscht temporäre Dateien
+     */
     private fun deleteTempFiles(file: File = cacheDir): Boolean {
         if (file.isDirectory) {
             val files = file.listFiles()

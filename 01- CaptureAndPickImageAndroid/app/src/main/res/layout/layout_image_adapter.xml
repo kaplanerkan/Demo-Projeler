@@ -18,10 +18,10 @@
         android:id="@+id/tvSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@tools:sample/full_names"
         android:layout_margin="4dp"
-        android:textStyle="bold"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="12sp"
+        tools:text="@tools:sample/full_names" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
