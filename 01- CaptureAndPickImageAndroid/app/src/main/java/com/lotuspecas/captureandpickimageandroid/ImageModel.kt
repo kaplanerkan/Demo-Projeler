@@ -1,3 +1,3 @@
 package com.lotuspecas.captureandpickimageandroid
 
-data class ImageModel(var path: String)
+data class ImageModel(val path: String)
