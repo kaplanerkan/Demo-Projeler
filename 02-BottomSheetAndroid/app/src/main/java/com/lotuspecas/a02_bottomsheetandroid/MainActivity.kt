@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initviews() {
-        val bottomSheet = BottomSheetFragment()
-        bottomSheet.show(supportFragmentManager, "BottomSheetFragment")
+//        val bottomSheet = BottomSheetFragment()
+//        bottomSheet.show(supportFragmentManager, "BottomSheetFragment")
     }
 
 
