@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">02 - BottomSheetAndroid</string>
+    <string name="show_persistent_bottomsheet">Show Persistent Bottomsheet</string>
+    <string name="show_modal_bottomsheet">Show Modal Bottomsheet</string>
+</resources>
