@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">02_Bottom_Sheet_Android</string>
+    <string name="show_persistent_bottomsheet">Show Persistent Bottomsheet</string>
+    <string name="show_modal_bottomsheet">Show Modal Bottomsheet</string>
+    <string name="_410">$410</string>
+    <string name="process_payment">Process Payment</string>
+    <string name="_350">$350</string>
+    <string name="mouse_1">Mouse × 1</string>
+    <string name="laptop_1">Laptop × 1</string>
+    <string name="order_details">Order Details</string>
+    <string name="create_new">Create new</string>
+    <string name="_20">$20</string>
+    <string name="keyboard_1">Keyboard × 1</string>
+    <string name="_40">$40</string>
+    <string name="total">Total</string>
+</resources>
