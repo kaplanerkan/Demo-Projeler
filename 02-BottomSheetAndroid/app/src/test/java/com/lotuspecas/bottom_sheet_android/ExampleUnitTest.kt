@@ -1,4 +1,4 @@
-package com.lotuspecas.a02_bottomsheetandroid
+package com.lotuspecas.bottom_sheet_android
 
 import org.junit.Test
 
